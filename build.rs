@@ -1,11 +1,11 @@
 extern crate cc;
 extern crate bindgen;
 
-use std::process::Command;
+// use std::process::Command;
 
 fn main() {
-    Command::new("sh").args(&["pre_build.sh"])
-                        .status().unwrap();
+    // Command::new("sh").args(&["pre_build.sh"])
+    //                     .status().unwrap();
     #[cfg(feature = "generate-bindings")]
     generate_bindings();
     build();
