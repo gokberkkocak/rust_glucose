@@ -5,7 +5,7 @@ pub mod bindings {
     // #![allow(non_camel_case_types)]
     // #![allow(non_snake_case)]
     // #![allow(dead_code)]
-    include!("glucose_bindings.rs");
+    include!(concat!(env!("OUT_DIR"), "/glucose_bindings.rs"));
 }
 
 use bindings::root::getASolver;
