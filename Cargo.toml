@@ -8,8 +8,6 @@ edition = "2018"
 bindgen = "0.52.0"
 cc = { version = "1.0.37", features = ["parallel"] } 
 
-[lib]
-crate_type = ["cdylib"]
 
 [features]
 generate-bindings = []
