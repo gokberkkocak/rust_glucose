@@ -27,6 +27,7 @@ fn generate_bindings(){
         .enable_cxx_namespaces()
         .clang_arg("-Ivendor/")
         .clang_arg(r"-std=c++11")
+        .clang_arg("-xc++")
         .generate()
         .expect("Unable to generate bindings");
 
