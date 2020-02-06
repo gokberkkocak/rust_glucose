@@ -51,7 +51,7 @@ void cglucose_assume (CGlucose * wrapper, int lit) {
 int cglucose_solve (CGlucose * wrapper) {
   bool ret = ((Wrapper*) wrapper)->solver->solveWithAssumpLink ();
   ((Wrapper*) wrapper)->solver->clearAssumptions ();
-  return ret;
+  return !ret;
 }
 
 int cglucose_val (CGlucose * wrapper, int lit) {
