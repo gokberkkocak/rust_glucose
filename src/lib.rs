@@ -93,7 +93,7 @@ pub fn get_glucose_solver_stats(s : *mut CGlucose) -> u64 {
 pub fn get_glucose_solution(s : *mut CGlucose, nb_vars : usize) -> Vec<i32>{
     let mut model : Vec<i32> = Vec::with_capacity(nb_vars);
     for i in 1..nb_vars+1{
-        let b = unsafe { cglucose_val(s, i as i32)}; 
+        let b = unsafe { cglucose_val(s, (i-1) as i32)}; 
         // #define l_True  (Glucose::lbool((uint8_t)0)) 
         // #define l_False (Glucose::lbool((uint8_t)1))
         // #define l_Undef (Glucose::lbool((uint8_t)2))
