@@ -101,6 +101,7 @@ class SimpSolver : public Solver {
     void    clearAssumptions();
     void    addToAssumptionsVec(Lit p);
     int     getNbLearnt();
+    int     getVal(int i);
     // Variable mode:
     // 
     void    setFrozen (Var v, bool b); // If a variable is frozen it will not be eliminated.

@@ -5,7 +5,7 @@ authors = ["Gökberk Koçak <gk34@st-andrews.ac.uk>"]
 edition = "2018"
 
 [build-dependencies]
-bindgen = "0.53.1"
+bindgen = "0.52"
 cc = { version = "1.0.37", features = ["parallel"] } 
 
 

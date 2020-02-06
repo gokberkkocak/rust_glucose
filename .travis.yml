@@ -1,5 +1,13 @@
 language: rust
 os:
   - linux
+  - osx
+rust:
+  - stable
+before-install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install llvm; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH=/usr/local/opt/llvm/bin:$PATH; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export CPLUS_INCLUDE_PATH=$(llvm-config --includedir):$CPLUS_INCLUDE_PATH; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export LD_LIBRARY_PATH=$(llvm-config --libdir):$LD_LIBRARY_PATH; fi 
 script:
   - cargo build --features="generate-bindings"
