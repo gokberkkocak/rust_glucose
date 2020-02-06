@@ -26,14 +26,12 @@ CGlucose * cglucose_init (void) {
 }
 
 void cglucose_add_to_clause (CGlucose * wrapper, int lit) {
-  int var = abs(lit) - 1;
-  Lit c_lit;
-  if (lit > 0) c_lit = mkLit(var, false);
-  else c_lit = mkLit(var, true);
-  while (var >= ((Wrapper*) wrapper)->solver->nVarsLink()) {
-    ((Wrapper*) wrapper)->solver->newVarLink(true, true);
+  int var = abs(lit)-1;
+  while (var >= ((Wrapper*) wrapper)->solver->nVars()){
+    ((Wrapper*) wrapper)->solver->newVar();
   } 
-  ((Wrapper*) wrapper)->solver->addToTmpClause (c_lit);
+    
+  ((Wrapper*) wrapper)->solver->addToTmpClause ( (lit > 0) ? mkLit(var) : ~mkLit(var) );
 }
 
 void cglucose_clean_clause(CGlucose * wrapper) {
@@ -41,19 +39,17 @@ void cglucose_clean_clause(CGlucose * wrapper) {
 }
 
 void cglucose_commit_clause(CGlucose * wrapper) {
-    ((Wrapper*) wrapper)->solver->addTmpClause ();
+    bool ret = ((Wrapper*) wrapper)->solver->addTmpClause ();
 }
 
 void cglucose_assume (CGlucose * wrapper, int lit) {
-  int var = abs(lit) - 1;
   Lit c_lit;
-  if (lit > 0) c_lit = mkLit(var, false);
-  else c_lit = mkLit(var, true);
-  ((Wrapper*) wrapper)->solver->addToAssumptionsVec (c_lit);
+  int var = abs(lit)-1;
+  ((Wrapper*) wrapper)->solver->addToAssumptionsVec ( (lit > 0) ? mkLit(var) : ~mkLit(var) );
 }
 
 int cglucose_solve (CGlucose * wrapper) {
-  bool ret = ((Wrapper*) wrapper)->solver->solveWithAssumpLink ();
+  bool ret = ((Wrapper*) wrapper)->solver->solveWithAssumpLink (false, true);
   ((Wrapper*) wrapper)->solver->clearAssumptions ();
   return !ret;
 }

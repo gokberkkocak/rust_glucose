@@ -58,7 +58,6 @@ pub fn add_assumptions_to_glucose_solver(s : *mut CGlucose, assumptions : Vec<i3
 }
 
 pub fn run_glucose(s : *mut CGlucose) -> i32 {
-    // no simplification and turn off simplification. Otherwise new searches are not possible.
     let ret = unsafe { cglucose_solve(s) };
     ret
 } 
