@@ -28,7 +28,7 @@ CGlucose * cglucose_init (void) {
 void cglucose_add_to_clause (CGlucose * wrapper, int lit) {
   int var = abs(lit) - 1;
   Lit c_lit;
-  if (lit > 0) clit = mkLit(var, false);
+  if (lit > 0) c_lit = mkLit(var, false);
   else c_lit = mkLit(var, true);
   while (var >= ((Wrapper*) wrapper)->solver->nVarsLink()) {
     ((Wrapper*) wrapper)->solver->newVarLink(true, true);
@@ -47,9 +47,9 @@ void cglucose_commit_clause(CGlucose * wrapper) {
 void cglucose_assume (CGlucose * wrapper, int lit) {
   int var = abs(lit) - 1;
   Lit c_lit;
-  if (lit > 0) clit = mkLit(var, false);
+  if (lit > 0) c_lit = mkLit(var, false);
   else c_lit = mkLit(var, true);
-  ((Wrapper*) wrapper)->solver->addToAssumptionsVec (clit);
+  ((Wrapper*) wrapper)->solver->addToAssumptionsVec (c_lit);
 }
 
 int cglucose_solve (CGlucose * wrapper) {
