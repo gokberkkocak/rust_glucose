@@ -3,6 +3,8 @@
 #include "utils/System.h"
 #include "core/Solver.h"
 
+#include <stdlib.h>
+
 namespace Glucose {
 
 struct Wrapper {
@@ -24,13 +26,14 @@ CGlucose * cglucose_init (void) {
 }
 
 void cglucose_add_to_clause (CGlucose * wrapper, int lit) {
-  Lit clit;
-  if (lit > 0) clit = mkLit(lit-1, false);
-  else clit = mkLit(-lit-1, true);
-  while (lit >= ((Wrapper*) wrapper)->solver->nVarsLink()) {
+  int var = abs(lit) - 1;
+  Lit c_lit;
+  if (lit > 0) clit = mkLit(var, false);
+  else c_lit = mkLit(var, true);
+  while (var >= ((Wrapper*) wrapper)->solver->nVarsLink()) {
     ((Wrapper*) wrapper)->solver->newVarLink(true, true);
   } 
-  ((Wrapper*) wrapper)->solver->addToTmpClause (clit);
+  ((Wrapper*) wrapper)->solver->addToTmpClause (c_lit);
 }
 
 void cglucose_clean_clause(CGlucose * wrapper) {
@@ -42,9 +45,10 @@ void cglucose_commit_clause(CGlucose * wrapper) {
 }
 
 void cglucose_assume (CGlucose * wrapper, int lit) {
-  Lit clit;
-  if (lit > 0) clit = mkLit(lit-1, false);
-  else clit = mkLit(-lit-1, true);
+  int var = abs(lit) - 1;
+  Lit c_lit;
+  if (lit > 0) clit = mkLit(var, false);
+  else c_lit = mkLit(var, true);
   ((Wrapper*) wrapper)->solver->addToAssumptionsVec (clit);
 }
 
