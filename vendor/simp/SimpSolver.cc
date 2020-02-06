@@ -277,6 +277,7 @@ void    SimpSolver::addToTmpClause(Lit p) { add_tmp.push(p); }
 void    SimpSolver::clearAssumptions() { assumptions.clear(); }
 void    SimpSolver::addToAssumptionsVec(Lit p) { assumptions.push(p); }
 int     SimpSolver::getNbLearnt(){ return nLearnts(); }
+int     SimpSolver::getVal(int i){ return toInt(model[i]); }
 //end of gk
 
 
