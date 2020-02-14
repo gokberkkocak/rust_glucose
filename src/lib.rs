@@ -68,11 +68,10 @@ pub fn get_glucose_solution(s : *mut CGlucose, nb_vars : usize) -> Vec<i32>{
 }
 
 /// Gets a solution from Glucose solver and writes on to the given Vector.
-/// No memory allocation is done during calling this.
-pub fn get_glucose_solution_no_malloc(s : *mut CGlucose, model : &mut Vec<i32>){
+/// No memory allocation is done here unless the given model has a smaller capacity then the given nb_vars. 
+pub fn get_glucose_solution_no_malloc(s : *mut CGlucose, model : &mut Vec<i32>, nb_vars : usize){
     model.clear();
-    let cap = model.capacity();
-    for i in 1..cap+1{
+    for i in 1..nb_vars+1{
         let b = unsafe { cglucose_val(s, (i-1) as i32)}; 
         // #define l_True  (Glucose::lbool((uint8_t)0)) 
         // #define l_False (Glucose::lbool((uint8_t)1))
