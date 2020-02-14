@@ -47,6 +47,8 @@ pub fn get_glucose_solver_stats(s : *mut CGlucose) -> u64 {
     nodes
 }
 
+/// Gets a solution from Glucose solver while using the given nb_vars 
+/// to allocate a new Rust solution vec to write and return.
 pub fn get_glucose_solution(s : *mut CGlucose, nb_vars : usize) -> Vec<i32>{
     let mut model : Vec<i32> = Vec::with_capacity(nb_vars);
     for i in 1..nb_vars+1{
@@ -63,6 +65,26 @@ pub fn get_glucose_solution(s : *mut CGlucose, nb_vars : usize) -> Vec<i32>{
         }
     }
     model
+}
+
+/// Gets a solution from Glucose solver and writes on to the given Vector.
+/// No memory allocation is done during calling this.
+pub fn get_glucose_solution_no_malloc(s : *mut CGlucose, model : &mut Vec<i32>){
+    model.clear();
+    let cap = model.capacity();
+    for i in 1..cap+1{
+        let b = unsafe { cglucose_val(s, (i-1) as i32)}; 
+        // #define l_True  (Glucose::lbool((uint8_t)0)) 
+        // #define l_False (Glucose::lbool((uint8_t)1))
+        // #define l_Undef (Glucose::lbool((uint8_t)2))
+        if b == 0 { 
+            model.push(i as i32);
+        } else if b == 1 {
+            model.push(-(i as i32));
+        } else if b == 2 {
+            panic!("Model has an undefined value!");
+        }
+    }
 }
 
 pub fn set_glucose_rnd_seed(s : *mut CGlucose, seed: f64){
