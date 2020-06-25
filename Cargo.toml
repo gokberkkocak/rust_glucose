@@ -10,4 +10,5 @@ cc = { version = "1.0.37", features = ["parallel"] }
 
 
 [features]
+default=["generate-bindings"]
 generate-bindings = []
