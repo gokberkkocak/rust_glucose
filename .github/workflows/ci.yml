@@ -30,7 +30,7 @@ jobs:
         with:
           command: test
   test_macos:
-    name: Test on Linux
+    name: Test on MacOS
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
