@@ -16,10 +16,22 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: check
-
-  test:
-    name: Test Suite
+  test_linux:
+    name: Test on Linux
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - uses: actions-rs/cargo@v1
+        with:
+          command: test
+  test_macos:
+    name: Test on Linux
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
